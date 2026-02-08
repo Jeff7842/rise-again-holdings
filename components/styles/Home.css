@@ -1,0 +1,14 @@
+
+
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(rgba(135, 206, 235, 0.92), rgba(135, 206, 235, 0.7)),
+              url('https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/Hero2.png') center/cover no-repeat;
+  overflow: hidden;
+}
+
