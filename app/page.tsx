@@ -268,10 +268,10 @@ export default function Home() {
                   </div>
 
                   <div className="flex justify-between gap-4 items-center">
-                    <button className="text-gray-900 border border-gray-900 text-[16px] sm:text-[16px] md:text-xl px-4 py-2 md:px-6 md:py-2 font-medium hover:text-white hover:border-red-500 hover:bg-red-500 focus:text-gray-200 focus:border-red-800 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
+                    <button className="text-gray-900 border border-gray-900 text-[16px] sm:text-[16px] md:text-xl px-4 py-2 md:px-6 md:py-2 font-medium hover:text-white hover:border-red-600 hover:bg-red-600 focus:text-gray-200 focus:border-red-800 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
                       View Details
                     </button>
-                    <button className="bg-red-700 text-white px-4 py-2 text-[16px] sm:text-[16px] md:text-xl md:px-6 md:py-2 font-medium hover:bg-red-500 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
+                    <button className="bg-red-700 text-white px-4 py-2 text-[16px] sm:text-[16px] md:text-xl md:px-6 md:py-2 font-medium hover:bg-red-600 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
                       Schedule Visit
                     </button>
                   </div>
