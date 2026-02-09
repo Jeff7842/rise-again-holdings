@@ -94,7 +94,7 @@ export default function Home() {
     <>
       <section
         id="home"
-        className="relative min-h-screen flex items-center"
+        className="relative min-h-[130vh] md:min-h-screen flex items-center px-6"
         style={{
           backgroundImage: `
       linear-gradient(135deg, rgba(135, 206, 235, 0.95) 10%, rgba(255, 255, 255, 0.05) 80%),
@@ -108,7 +108,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-20">
           <div className="max-w-3xl">
             <div className="mb-8">
-              <span className="text-[#D2242A] font-semibold uppercase tracking-wider">
+              <span className="text-[#D2242A] text-xs md:text-[16px] font-semibold uppercase tracking-wider">
                 Premium Real Estate
               </span>
               <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mt-4 leading-tight">
@@ -121,28 +121,28 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="mt-12">
-              <button className="bg-red-700text-red-700 text-white border-gray-300 border-2 px-8 py-4 text-lg font-medium hover:bg-red-700 hover:border-red-700 transition-colors mr-4">
+            <div className="mt-12  flex flex-col md:flex-row gap-5 w-full text-center">
+              <button className="bg-transparent  text-white border-gray-300 border-2 w-full md:w-auto px-4 py-2 md:px-8 md:py-4 text-[16px] md:text-lg font-medium hover:bg-red-700 hover:border-red-700 focus:bg-red-800 focus:border-red-800 focus:scale-[0.98] transition-colors mr-4">
                 Find Your Dream Home
               </button>
-              <button className="bg-white text-gray-900 px-8 py-4 text-lg font-medium border border-gray-300 hover:text-gray-100 hover:border-red-700 hover:bg-red-700 transition-colors">
+              <button className="bg-white text-gray-900 w-full md:w-auto px-4 py-2 md:px-8 md:py-4 text-[16px] md:text-lg font-medium border border-gray-300 hover:text-gray-100 hover:border-red-700 hover:bg-red-700 focus:text-gray-100 focus:border-red-800 focus:bg-red-800 focus:scale-[0.98] transition-colors">
                 View Listings
               </button>
             </div>
 
             {/* Stats */}
-            <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="mt-15 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
                 <div className="text-4xl font-bold text-gray-900">100+</div>
-                <div className="text-gray-600 mt-2">Units Ready</div>
+                <div className="text-gray-100 mt-2">Units Ready</div>
               </div>
               <div>
                 <div className="text-4xl font-bold text-gray-900">60K+</div>
-                <div className="text-gray-600 mt-2">Satisfied Customers</div>
+                <div className="text-gray-100 mt-2">Satisfied Customers</div>
               </div>
               <div>
                 <div className="text-4xl font-bold text-gray-900">70K+</div>
-                <div className="text-gray-600 mt-2">Positive Reviews</div>
+                <div className="text-gray-100 mt-2">Positive Reviews</div>
               </div>
             </div>
           </div>
@@ -151,10 +151,10 @@ export default function Home() {
       <section id="about" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
               Enjoy Quality Life with Rise Again Holdings
             </h2>
-            <p className="text-lg text-gray-700 mb-8">
+            <p className="text-[16px] lg:text-lg text-gray-700 mb-8">
               Since 2021, Rise Again Holdings has been the right choice for
               those seeking comfortable, safe, and affordable premium
               properties. Through our exclusive cluster concept, residents enjoy
@@ -237,7 +237,7 @@ export default function Home() {
                   <p className="text-gray-600 mb-6">{listing.description}</p>
 
                   <div className="flex items-center text-gray-700 mb-4">
-                    <MapPin className="w-4 h-4 mr-2" />
+                    <MapPin className="w-4 h-4 mr-2 text-red-800" />
                     <span>{listing.location}</span>
                   </div>
 
@@ -267,11 +267,11 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="flex justify-between items-center">
-                    <button className="text-red-700 font-medium hover:text-red-700 transition-colors">
+                  <div className="flex justify-between gap-4 items-center">
+                    <button className="text-gray-900 border border-gray-900 text-[16px] sm:text-[16px] md:text-xl px-4 py-2 md:px-6 md:py-2 font-medium hover:text-white hover:border-red-500 hover:bg-red-500 focus:text-gray-200 focus:border-red-800 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
                       View Details
                     </button>
-                    <button className="bg-red-700text-red-700 text-white px-6 py-2 font-medium hover:bg-red-700 transition-colors">
+                    <button className="bg-red-700 text-white px-4 py-2 text-[16px] sm:text-[16px] md:text-xl md:px-6 md:py-2 font-medium hover:bg-red-500 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
                       Schedule Visit
                     </button>
                   </div>
@@ -281,7 +281,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-16">
-            <button className="bg-white text-gray-900 border border-gray-300 px-8 py-3 font-medium hover:border-red-700 hover:text-red-700 transition-colors">
+            <button className="bg-white text-gray-900 border border-gray-300 px-8 py-3 font-medium hover:border-red-700 hover:text-red-700 focus:border-red-800 focus:bg-red-800 focus:text-gray-50 focus:scale-[0.98] transition-colors cursor-pointer">
               View All Listings
             </button>
           </div>
@@ -314,7 +314,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <button className="bg-gradient-to-r from-red-700 to-red-900 text-red-100 text-white px-10 py-4 text-lg font-medium hover:from-red-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl">
+              <button className="bg-gradient-to-r from-red-700 to-red-900 text-red-100 text-white px-10 py-4 text-l md:text-lg font-medium hover:from-red-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl">
                 Advertise Your Property With Us
               </button>
             </div>
@@ -333,16 +333,16 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 ">
               {faqs.map((faq, index) => (
-                <div key={index} className="luxury-card">
+                <div key={index} className="luxury-card ">
                   <button
                     className="w-full p-6 text-left flex justify-between items-center"
                     onClick={() =>
                       setOpenIndex(openIndex === index ? null : index)
                     }
                   >
-                    <span className="text-lg font-medium text-gray-900">
+                    <span className="text-lg font-medium text-gray-900 ">
                       {faq.question}
                     </span>
                     {openIndex === index ? (
@@ -361,7 +361,7 @@ export default function Home() {
             </div>
 
             <div className="text-center mt-12">
-              <button className="bg-red-700 text-red-700 text-white px-8 py-3 font-medium hover:bg-red-800 transition-colors">
+              <button className="bg-red-700  text-white px-6 py-3 md:px-8 md:py-3 font-medium hover:bg-red-800 focus:bg-red-800 focus:text-gray-100 focus:scale-[0.98] transition-colors">
                 Contact Us for More Information
               </button>
             </div>

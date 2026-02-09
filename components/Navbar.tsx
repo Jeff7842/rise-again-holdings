@@ -40,7 +40,7 @@ export default function Navbar() {
         >
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-18 h-full bg-rise-red rounded-full flex items-center justify-center">
+            <div className="w-14 md:w-18 h-full bg-rise-red rounded-full flex items-center justify-center">
               <Image
                 src="https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/Asset%207@2x.webp"
                 alt=""
@@ -48,11 +48,11 @@ export default function Navbar() {
                 height={150}
               />
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">
+            <div className="">
+              <h1 className="text-[12px] md:text-[14px] font-bold  text-gray-900">
                 RISE AGAIN HOLDINGS LTD
               </h1>
-              <p className="text-xs text-gray-600">REAL ASSEST, REAL VALUE</p>
+              <p className="text-[8px] md:text-xs text-gray-600">REAL ASSEST, REAL VALUE</p>
             </div>
           </div>
 
@@ -62,7 +62,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className={`font-medium transition-colors ${
+                className={`font-medium hover:text-red-600 focus:text-red-800 transition-colors ${
                   isScrolled
                     ? "text-gray-900 hover:text-rise-red"
                     : "text-gray-60 hover:text-rise-red"
@@ -73,10 +73,10 @@ export default function Navbar() {
             ))}
           </div>
           <button
-            className={`border px-6 py-2.5 font-medium hover:bg-red-700 hover:text-white hover:border-red-700 transition-colors${
+            className={`border px-6 py-2.5 hidden lg:block font-medium transition-colors${
               isScrolled
-                ? "bg-transparent text-gray-900 border-gray-900 hover:bg-red-700 hover:text-white hover:border-red-700"
-                : "bg-transparent text-gray-900    border-[#ffff] hover:bg-red-700 hover:text-red-700 hover:border-red-700"
+                ? "bg-transparent text-gray-900 border-gray-900 hover:bg-red-700 hover:text-white hover:border-red-700 focus:bg-red-800 focus:text-white focus:border-red-800"
+                : "bg-transparent text-gray-900    border-[#ffff] hover:bg-red-700 hover:text-gray-50 hover:border-red-700 focus:bg-red-800 focus:text-gray-50 focus:border-red-800"
             }`}
           >
             Contact Us
@@ -84,30 +84,30 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-gray-900"
+            className="lg:hidden text-gray-900 active:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={24} className="text-red-600"/> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-lg">
-            <div className="container mx-auto px-4 py-6">
+          <div className="lg:hidden absolute top-full w-[90%] justify-center rounded-2xl bg-white/75 backdrop-blur-lg border-t border-gray-100 shadow-lg">
+            <div className="container mx-auto px-6 py-6">
               <div className="flex flex-col space-y-4">
                 {navLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
-                    className="text-gray-900 hover:text-rise-red font-medium py-2"
+                    className="text-gray-900 hover:text-rise-red font-medium py-2  hover:text-red-600 focus:text-red-800"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.name}
                   </a>
                 ))}
-                <button className="bg-rise-red text-white px-6 py-3 font-medium hover:bg-red-700 transition-colors mt-4">
-                  Contact Today
+                <button className="bg-red-700 text-white px-6 py-3 font-medium hover:bg-red-700 focus:bg-red-800 focus:text-white focus:border-red-800 focus:scale-[0.98] transition-colors mt-4">
+                  Contact Us Today
                 </button>
               </div>
             </div>

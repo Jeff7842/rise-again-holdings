@@ -107,12 +107,12 @@ export default function Footer() {
               <li className="text-gray-400">
                 Email: contact@riseagainholdings.com
               </li>
-              <li className="text-gray-400">Phone: +1 (555) 123-4567</li>
+              <li className="text-gray-400">Phone: +254 712 345 678</li>
               <li className="text-gray-400">
-                Address: 123 Luxury Lane, Premium City
+                Address: Westalnads, Nairobi
               </li>
             </ul>
-            <button className="mt-6 bg-rise-red text-white px-6 py-2.5 font-medium hover:bg-red-700 transition-colors">
+            <button className="mt-6 bg-transparent border border-red-600 text-white px-6 py-2.5 font-medium hover:bg-red-700  hover:border-red-700 focus:bg-red-700  focus:border-red-700 focus:text-gray-200 focus:scale-[0.98] transition-colors">
               Get In Touch
             </button>
           </div>
@@ -124,13 +124,13 @@ export default function Footer() {
             reserved.
           </p>
           <div className="mt-4 text-sm">
-            <a href="#" className="hover:text-white transition-colors mx-4">
+            <a href="#" className="hover:text-white focus:text-red-200 text-red-50 transition-colors mx-4">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-white transition-colors mx-4">
+            <a href="#" className="hover:text-white focus:text-red-200 text-red-50 transition-colors mx-4">
               Terms of Service
             </a>
-            <a href="#" className="hover:text-white transition-colors mx-4">
+            <a href="#" className="hover:text-white focus:text-red-200 text-red-50 transition-colors mx-4">
               DPA
             </a>
           </div>
