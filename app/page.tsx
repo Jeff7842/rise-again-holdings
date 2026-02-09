@@ -2,6 +2,8 @@
 
 import "../components/styles/Home.css";
 import Image from "next/image";
+import Link from "next/link";
+import Navbar from '../components/Navbar';
 import {
   MapPin,
   House,
@@ -37,32 +39,68 @@ const features = [
 ];
 const listings = [
   {
-    title: "Luxury Sky Villa",
-    description: "Modern villa with panoramic city views and private garden",
-    location: "Premium District, City Center",
+    id: "4br-flat-roof-ruiru-mugutha",
+    title: "Modern 4-Bedroom Flat Roof Maisonette",
+    description:
+      "Brand new 4-bedroom all-ensuite flat-roof maisonette in a secure gated community of only 3 units. Features a sunken lounge, open-plan kitchen with pantry, solar hot water, biodigester, electric fence, and parking for 5 cars.",
+    location: "Mugutha, Ruiru – Near St. Paul Catholic Church, off Thika Road",
     bedrooms: 4,
-    bathrooms: 3,
-    washrooms: 2,
-    buildingArea: "3500 sq ft",
-    landSize: "0.5 acres",
-    price: "$2.5M",
-    imageUrl:
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/Hero3.png",
-  },
-  {
-    title: "Executive Penthouse",
-    description: "Top-floor penthouse with private rooftop and infinity pool",
-    location: "Financial District",
-    bedrooms: 3,
-    bathrooms: 2,
+    bathrooms: 4,
     washrooms: 1,
-    buildingArea: "2800 sq ft",
-    landSize: "N/A",
-    price: "$1.8M",
+    buildingArea: "Approx. 2800 sq ft",
+    landSize: "Slightly larger than 40x80 ft",
+    price: "KES 14.5M",
+    imageUrl:"https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/4bedroom-mugutha.jpeg",
+  },
+
+  {
+    id: "5br-luxury-home-kamakis",
+    title: "Luxury 5-Bedroom All-Ensuite Home",
+    description:
+      "Newly built 5-bedroom all-ensuite residence with DSQ, family TV room, high-end finishes including gypsum ceilings and porcelain tiles. Located in a secure gated estate just off the Eastern Bypass.",
+    location: "Kamakis, Ruiru – Near Eastern Bypass & Thika Superhighway",
+    bedrooms: 5,
+    bathrooms: 5,
+    washrooms: 1,
+    buildingArea: "Approx. 4200 sq ft",
+    landSize: "50x100 ft",
+    price: "KES 27M (Negotiable)",
+    imageUrl:"https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/Luxury-5-bedroom.jpeg",
+  },
+
+  {
+    id: "4br-maisonette-kenyatta-road",
+    title: "Contemporary 4-Bedroom Maisonette",
+    description:
+      "Modern 4-bedroom maisonette in a gated community featuring a spacious lounge, separate dining area, open-plan kitchen with granite tops, master bedroom with balcony, and a dedicated prayer room.",
+    location: "Kenyatta Road, Juja – 5km off Thika Road",
+    bedrooms: 4,
+    bathrooms: 4,
+    washrooms: 1,
+    buildingArea: "Approx. 3000 sq ft",
+    landSize: "40x80 ft",
+    price: "KES 15M",
+    imageUrl:"https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/kenyatta-road.jpeg",
+  },
+
+  {
+    id: "thome-estate-mixed-development",
+    title: "Prime Thome Estate Residential Compound",
+    description:
+      "High-value residential compound featuring a 5-bedroom all-ensuite maisonette plus an additional 4-bedroom maisonette. Sits on ¾ acre with cabro-paved compound, green area, council water, and premium interior finishes.",
+    location: "Thome Estate – Less than 1km from Thika Road (Roasters)",
+    bedrooms: 9,
+    bathrooms: 9,
+    washrooms: 2,
+    buildingArea: "Multiple Units",
+    landSize: "¾ Acre",
+    price: "KES 100M",
     imageUrl:
       "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/Hero3.png",
   },
+  
 ];
+
 
 const faqs = [
   {
@@ -92,6 +130,7 @@ export default function Home() {
 
   return (
     <>
+    <Navbar />
       <section
         id="home"
         className="relative min-h-[130vh] md:min-h-screen flex items-center px-6"
@@ -269,7 +308,9 @@ export default function Home() {
 
                   <div className="flex justify-between gap-4 items-center">
                     <button className="text-gray-900 border border-gray-900 text-[16px] sm:text-[16px] md:text-xl px-4 py-2 md:px-6 md:py-2 font-medium hover:text-white hover:border-red-600 hover:bg-red-600 focus:text-gray-200 focus:border-red-800 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
-                      View Details
+                      <Link  href={`/listings/${listing.id}`} className="btn">
+  View Details
+</Link >
                     </button>
                     <button className="bg-red-700 text-white px-4 py-2 text-[16px] sm:text-[16px] md:text-xl md:px-6 md:py-2 font-medium hover:bg-red-600 focus:bg-red-800 focus:scale-[0.99] transition-colors cursor-pointer">
                       Schedule Visit

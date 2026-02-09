@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: __dirname,
+  },
  reactCompiler: false,
   experimental:{
     turbopackFileSystemCacheForDev:true,
@@ -13,6 +16,7 @@ const nextConfig: NextConfig = {
         pathname: '/storage/v1/object/public/**',
       },
     ],
+    
   },
 };
 

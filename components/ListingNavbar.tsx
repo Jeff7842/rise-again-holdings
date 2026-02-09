@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import Image from "next/image";
 
 const navLinks = [
-  { name: "Home", href: "/" },
+  { name: "Home", href: "#home" },
   { name: "About Us", href: "#about" },
   { name: "Services", href: "#services" },
   { name: "Available Listings", href: "#listings" },
@@ -55,6 +55,15 @@ export default function Navbar() {
               <p className="text-[8px] md:text-xs text-gray-600">REAL ASSEST, REAL VALUE</p>
             </div>
           </div>
+
+          {/* Search Bar */}
+        <div className="navbar-search">
+          <Search className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search by location, property type, price..."
+          />
+        </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-10 justify-center">
