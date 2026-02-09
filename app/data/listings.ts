@@ -78,7 +78,7 @@ export const listings = [
   },
 
   {
-    id: "4br-maisonette-kenyatta-road-juja",
+    id: "4br-maisonette-kenyatta-road",
     title: "Contemporary 4-Bedroom Maisonette with Prayer Room",
     price: "KES 15M",
     country: "Kenya",
