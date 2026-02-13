@@ -107,7 +107,7 @@ export default function Footer() {
               <li className="text-gray-400">
                 Email: contact@riseagainholdings.com
               </li>
-              <li className="text-gray-400">Phone: +254 712 345 678</li>
+              <li className="text-gray-400">Phone: +254 718 551 831</li>
               <li className="text-gray-400">
                 Address: Westalnads, Nairobi
               </li>
