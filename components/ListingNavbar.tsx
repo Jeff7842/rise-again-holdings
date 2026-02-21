@@ -26,7 +26,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full  z-50 transition-all duration-300 ${
         isScrolled ? "glass-nav py-3" : "bg-transparent py-6"
       }`}
     >

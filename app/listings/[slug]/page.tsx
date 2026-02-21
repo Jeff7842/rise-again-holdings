@@ -1,28 +1,19 @@
-"use client";
-
-import { useParams } from "next/navigation";
-import { listings } from "../../data/listings";
+import { getListingBySlugOrId, getListings, type ListingShape } from "@/app/data/listings";
 import Image from "next/image";
-import '../../../components/styles/listings.css'
+import "../../../components/styles/listings.css";
 import ListingGallery from "@/components/ListingGallery";
-import {
-  MapPin,
-  House,
-  Shield,
-  Bed,
-  Bath,
-  Maximize,
-  Megaphone,
-  ChevronDown,
-  ChevronUp,
-  Search,
-} from "lucide-react";
-import Navbar from '@/components/Navbar';
+import { MapPin, Maximize, Search } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Link from "next/link";
+import Footer from '@/components/Footer';
 
 function ContactAgentForm({ listing }: { listing: string }) {
   return (
     <form className="contact-form">
       <h3>Contact Agent</h3>
+      <p className="contact-form-subtitle">
+        Enquire about this property and receive a private briefing.
+      </p>
 
       <input placeholder="Your Name" required />
       <input placeholder="Country" required />
@@ -30,14 +21,12 @@ function ContactAgentForm({ listing }: { listing: string }) {
       <input placeholder="Phone Number" required />
       <textarea placeholder="Message" defaultValue={`I'm interested in ${listing}`} />
 
-      {/* Preferred Contact Method */}
       <div className="form-group">
         <label className="form-label">Preferred Contact Method</label>
-
         <div className="contact-checkbox">
-          {["phone", "Email", "whatsapp"].map(method => (
+          {["Phone", "Email", "WhatsApp"].map((method) => (
             <label key={method} className="checkbox-wrapper">
-              <input type="radio" name="contactMethod" value={method} />
+              <input className="checkbox-input" type="radio" name="contactMethod" value={method} />
               <span className="checkbox-tile">
                 <span className="checkbox-label">{method}</span>
               </span>
@@ -51,21 +40,36 @@ function ContactAgentForm({ listing }: { listing: string }) {
   );
 }
 
-function MoreListings({ current }: { current: string }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function MoreListings({ current, listings }: { current: string; listings: any[] }) {
+  const isImageUrl = (url?: string) =>
+    typeof url === "string" && /\.(jpg|jpeg|png|webp|avif)$/i.test(url);
+
   return (
     <section className="more-listings">
-      <h3>More Available Listings</h3>
+      <div className="section-heading">
+        <h3>More Available Listings</h3>
+      </div>
 
-      <div className="scroll-row">
+      <div className="more-grid">
         {listings
-          .filter(l => l.id !== current)
-          .map(l => (
-            <a key={l.id} href={`/listings/${l.id}`} className="card">
-              <Image src={l.images[0]} alt="" width={300} height={200} />
-              <h4>{l.title}</h4>
-              <p>{l.price}</p>
-            </a>
-          ))}
+          .filter((l) => l.id !== current)
+          .map((l) => {
+            const href = `/listings/${l.slug ?? l.id}`;
+            const thumb =
+              l.cover_image_url ||
+              (Array.isArray(l.images) ? l.images.find(isImageUrl) : null) ||
+              "/placeholder.jpg";
+
+            return (
+              <Link key={l.id} href={href} className="card">
+                <Image src={thumb} alt={l.title ?? ""} width={320} height={200} />
+                <h4>{l.title ?? "Untitled listing"}</h4>
+                <p>{l.location ?? "Location unavailable"}</p>
+                <p className="card-price">{l.price ?? "Price on request"}</p>
+              </Link>
+            );
+          })}
       </div>
     </section>
   );
@@ -74,148 +78,159 @@ function MoreListings({ current }: { current: string }) {
 function NewsHub() {
   return (
     <section className="news-hub">
-      <h3>Luxury Real Estate News</h3>
+      <div className="section-heading">
+        <h3>Luxury Real Estate News</h3>
+      </div>
 
       <div className="scroll-row">
-        {["Market Trends", "Investment Insights", "Luxury Developments"].map(
-          (news, i) => (
-            <div key={i} className="news-card">
-              <h4>{news}</h4>
-              <p>Read more →</p>
-            </div>
-          )
-        )}
+        {["Market Trends", "Investment Insights", "Luxury Developments"].map((news, i) => (
+          <div key={i} className="news-card">
+            <h4>{news}</h4>
+            <p>Read more</p>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
+function inferUniqueFeatures(description?: string | null): string[] {
+  if (!description) return [];
+  const text = description.toLowerCase();
+  const checks: Array<[RegExp, string]> = [
+    [/bio[\s-]?tank/, "Bio tank waste system"],
+    [/sliding[\s-]?gate/, "Automated sliding gate"],
+    [/open[\s-]?(plan|kitchen)/, "Open kitchen concept"],
+    [/cctv|surveillance/, "Integrated CCTV security"],
+    [/solar/, "Solar power support"],
+    [/backup\s?(generator|power)/, "Backup power supply"],
+    [/borehole/, "Borehole water supply"],
+    [/perimeter\s?wall/, "Secured perimeter wall"],
+    [/gated/, "Gated community setting"],
+    [/dsq|servant/, "Staff quarter / DSQ"],
+  ];
 
-export default function ListingDetails() {
-  const { slug } = useParams();
-  const listing = listings.find(l => l.id === slug);
+  return checks.filter(([pattern]) => pattern.test(text)).map(([, label]) => label);
+}
+
+function buildAllFeatures(listing: ListingShape, uniqueFeatures: string[]): string[] {
+  const baseFeatures = [
+    listing.bedrooms ? `${listing.bedrooms} bedrooms` : null,
+    listing.bathrooms ? `${listing.bathrooms} bathrooms` : null,
+    listing.washrooms ? `${listing.washrooms} washrooms` : null,
+    listing.buildingArea ? `Building area: ${listing.buildingArea}` : null,
+    listing.landSize ? `Land size: ${listing.landSize}` : null,
+    listing.location ? `Location: ${listing.location}` : null,
+  ].filter(Boolean) as string[];
+
+  return [...baseFeatures, ...uniqueFeatures];
+}
+
+export default async function ListingDetails({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+
+  if (!slug || slug === "undefined") {
+    return <p>Bad route param: slug is missing.</p>;
+  }
+
+  const [listing, allListings] = await Promise.all([getListingBySlugOrId(slug), getListings()]);
 
   if (!listing) return <p>Listing not found</p>;
+  const uniqueFeatures = inferUniqueFeatures(listing.description);
+  const featuredHighlights =
+    uniqueFeatures.length > 0
+      ? uniqueFeatures
+      : ["Open kitchen concept", "Secure gated entry", "Private bio tank system"];
+  const allFeatures = buildAllFeatures(listing, featuredHighlights);
 
   return (
     <>
-        <Navbar/>
-    <div className="container min-h-full pt-30">
-      {/* Search Bar */}
-        <div className="navbar-search mb-6">
-          <Search className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search by location, property type, price..."
-          />
-        </div>
+      <Navbar />
 
-      {/* Gallery */}
-      <ListingGallery images={listing.images} />
-
-      {/* Main Grid */}
-      <section className="grid">
-        <div>
-          <h1 className="font-bold text-4xl text-gray-900">{listing.title}</h1>
-          <div className="w-full flex mb-5">
-  <div className="flex items-center justify-between w-full max-w-4xl">
-    
-    {/* Location — LEFT */}
-    <div className="flex items-center text-gray-700">
-      <MapPin className="w-4 h-4 mr-2 text-red-800" />
-      <span>{listing.location}</span>
-    </div>
-
-    {/* Price — RIGHT */}
-    <p className="price font-semibold flex gap-2">
-      <span className="ml-6 text-red-700">Price:</span>
-      {listing.price}
-    </p>
-
-  </div>
-</div>
-
-          <div className="mb-6">
-          <h3 className="font-bold text-lg text-red-700 mb-1">Description</h3>
-          <p>{listing.description}</p>
+      <div className="listing-shell">
+        <div className="listing-topbar">
+          <div className="listing-search">
+            <Search className="search-icon" />
+            <input type="text" placeholder="Search by location, property type, or price" />
           </div>
-
-          <div className="bg-white relative rounded-xl border border-gray-200 p-6 mb-8 -left-1">
-  <h3 className="text-lg font-semibold mb-5">Key Features</h3>
-
-
-  <div className="key-features-grid">
-    
-    {/* Bedrooms */}
-    <div className="flex items-center gap-3">
-      <div className="p-2 rounded-lg bg-red-50">
-        <Bed className="w-4 h-4 text-red-700" />
-      </div>
-      <span className="text-gray-700 text-sm">
-        {listing.bedrooms} Bedrooms
-      </span>
-    </div>
-
-    {/* Bathrooms */}
-    <div className="flex items-center gap-3">
-      <div className="p-2 rounded-lg bg-red-50">
-        <Bath className="w-4 h-4 text-red-700" />
-      </div>
-      <span className="text-gray-700 text-sm">
-        {listing.bathrooms} Bathrooms
-      </span>
-    </div>
-
-    {/* Building Area */}
-    <div className="flex items-center gap-3">
-      <div className="p-2 rounded-lg bg-red-50">
-        <Maximize className="w-4 h-4 text-red-700" />
-      </div>
-      <span className="text-gray-700 text-sm">
-        {listing.buildingArea}
-      </span>
-    </div>
-
-    {/* Land Size */}
-    <div className="flex items-center gap-3">
-      <div className="p-2 rounded-lg bg-red-50">
-        <Maximize className="w-4 h-4 text-red-700" />
-      </div>
-      <span className="text-gray-700 text-sm">
-        Land: {listing.landSize}
-      </span>
-    </div>
-
-    {/* Washrooms (optional but premium detail) */}
-    {listing.washrooms && (
-      <div className="flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-red-50">
-          <Bath className="w-4 h-4 text-red-700" />
-        </div>
-        <span className="text-gray-700 text-sm">
-          {listing.washrooms} Washrooms
-        </span>
-      </div>
-    )}
-
-  </div>
-</div>
-
-
-          {/* Map */}
-          <iframe
-            src={`https://maps.google.com/maps?q=${listing.coordinates.lat},${listing.coordinates.lng}&z=14&output=embed`}
-            className="map"
-          />
         </div>
 
-        {/* Contact Agent */}
-        <ContactAgentForm listing={listing.title} />
-      </section>
+        <section className="listing-section listing-section-gallery">
+          <ListingGallery images={listing.images} />
+        </section>
 
-      <MoreListings current={listing.id} />
-      <NewsHub />
-    </div>
+        <section className="listing-section">
+          <div className="details-grid">
+            <article className="details-main">
+              <h1>{listing.title}</h1>
+
+              <div className="details-meta">
+                <div className="meta-line">
+                  <MapPin className="meta-icon" />
+                  <span>{listing.location}</span>
+                </div>
+
+                <p className="price">
+                  <span>Price</span>
+                  {listing.price}
+                </p>
+              </div>
+
+              <div className="details-copy">
+                <h3>Description</h3>
+                <p>{listing.description}</p>
+              </div>
+
+              <div className="features-card">
+                <h3>Key Features</h3>
+                <div className="key-features-grid">
+                  {featuredHighlights.map((feature) => (
+                    // eslint-disable-next-line react/jsx-key
+                    <div className="feature-item">
+                      <div className="feature-icon-wrap">
+                        <Maximize className="feature-icon" />
+                      </div>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+
+            <aside className="details-sidebar">
+              <ContactAgentForm listing={listing.title} />
+            </aside>
+          </div>
+        </section>
+
+        <section className="listing-section">
+          <section className="all-features">
+            <div className="section-heading">
+              <h3>All Features</h3>
+            </div>
+            <div className="all-features-grid">
+              {allFeatures.map((feature) => (
+                <div key={feature} className="all-feature-item">
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </section>
+        </section>
+
+        <section className="listing-section">
+          <MoreListings current={listing.id} listings={allListings} />
+        </section>
+
+        <section className="listing-section">
+          <NewsHub />
+        </section>
+      </div>
+            <Footer/>
     </>
   );
 }

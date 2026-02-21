@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-gray-900 text-white py-16">
+    <footer id="contact" className="bg-gray-900 text-white py-16 pl-15 pr-15 md:pl-5 md:pr-5">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           <div>
@@ -107,7 +107,7 @@ export default function Footer() {
               <li className="text-gray-400">
                 Email: contact@riseagainholdings.com
               </li>
-              <li className="text-gray-400">Phone: +254 712 345 678</li>
+              <li className="text-gray-400">Phone: +254 718 551 831</li>
               <li className="text-gray-400">
                 Address: Westalnads, Nairobi
               </li>

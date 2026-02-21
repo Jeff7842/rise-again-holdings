@@ -1,0 +1,259 @@
+/* Listings Index Page (separate from your existing listings.css details page) */
+
+.listings-page {
+  padding-top: 96px; /* navbar clearance */
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  min-height: 100vh;
+}
+
+.listings-header {
+  position: sticky;
+  top: 0px; /* aligns under your fixed navbar */
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.listings-header-inner {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.listings-titleblock {
+  min-width: 260px;
+}
+
+.listings-eyebrow {
+  margin: 0;
+  color: #991b1b;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.listings-title {
+  margin: 4px 0 0 0;
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #111827;
+}
+
+.listings-subtitle {
+  margin: 6px 0 0 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.listings-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.searchbox,
+.sortbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchbox input {
+  width: min(520px, 70vw);
+  height: 44px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 0 14px 0 42px;
+  outline: none;
+  font-size: 14px;
+  background: white;
+}
+
+.sortbox select {
+  height: 44px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 0 14px 0 40px;
+  outline: none;
+  font-size: 14px;
+  background: white;
+}
+
+.searchbox-icon,
+.sortbox-icon {
+  position: absolute;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  color: #6b7280;
+}
+
+.results-pill {
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #111827;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.listings-content {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 22px 20px 60px;
+}
+
+/* Flexible grid that can reach 10 columns on ultrawide */
+.listings-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(5, 1fr);/* mobile default */
+}
+
+.listing-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(209, 32, 39, 0.35);
+  box-shadow: 0 14px 36px rgba(17, 24, 39, 0.12);
+}
+
+.listing-card-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  background: #f3f4f6;
+}
+
+.listing-card-img {
+  object-fit: cover;
+}
+
+.listing-card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.55) 100%);
+}
+
+.listing-card-price {
+  position: absolute;
+  left: 12px;
+top: 10px;
+  padding: 8px 10px;
+  border-radius: 1px;
+  background: rgba(209, 32, 39, 0.95);
+  color: white;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.listing-card-body {
+  padding: 12px 12px 14px;
+}
+
+.listing-card-title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 850;
+  color: #111827;
+}
+
+.listing-card-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.listing-card-location {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 8px;
+  color: #4b5563;
+  font-size: 13px;
+}
+
+.listing-card-meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.meta-item {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(209, 32, 39, 0.08);
+  color: #991b1b;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.listing-card-cta {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #111827;
+  color: white;
+  font-weight: 800;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.btn-view:hover {
+  background: #991b1b;
+}
+
+.state {
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  color: #111827;
+}
+
+.state-hint {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.state-error {
+  border-color: rgba(220, 38, 38, 0.35);
+}

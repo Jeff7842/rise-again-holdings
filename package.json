@@ -22,11 +22,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.97.0",
     "lucide": "^0.563.0",
     "lucide-react": "^0.563.0",
-    "next": "16.1.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
     "tailwind": "^4.0.0"
   },
   "devDependencies": {
@@ -35,9 +33,12 @@
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.24",
-    "eslint": "^10.0.0",
+    "eslint": "^9.39.3",
     "eslint-config-next": "16.1.6",
+    "next": "16.1.6",
     "postcss": "^8.5.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }

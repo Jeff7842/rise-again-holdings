@@ -1,156 +1,191 @@
-// data/listings.ts
-export const listings = [
-  // ================= RESIDENTIAL LISTINGS (KENYA – PRIMARY INVENTORY) =================
+import { supabase } from "@/lib/supabaseClient";
 
-  {
-    id: "4br-flat-roof-ruiru-mugutha",
-    title: "Modern 4-Bedroom Flat Roof Maisonette",
-    price: "KES 14.5M",
-    country: "Kenya",
-    location: "Mugutha, Ruiru – Near St. Paul Catholic Church, off Thika Road",
-    description:
-      "A brand-new, architecturally modern 4-bedroom flat-roof maisonette located in a highly developed and secure gated community of only three units. The home is approximately 2km from Thika Superhighway and just 200 meters from tarmac, offering both accessibility and serenity. Key highlights include a spacious sunken lounge, all bedrooms ensuite with fitted wardrobes, an open-plan kitchen with pantry, guest cloakroom, solar hot water system, biodigester (no septic), electric fence with alarm system, perimeter wall, sliding gate, manicured front garden, and ample parking for up to five vehicles. The property sits on a plot slightly larger than 40x80ft and comes with a ready title deed.",
-    coordinates: { lat: -1.1453, lng: 36.9647 },
-    bedrooms: 4,
-    bathrooms: 4,
-    washrooms: 1,
-    buildingArea: "Approx. 2800 sq ft",
-    landSize: "40x80+ ft",
-    images: [
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.47%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.47%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.47%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.47%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.47.jpeg",
+export type ListingShape = {
+  id: string;                 // slug/id used in route
+  title: string;
+  price: string | null;
+  country?: string;           // not in DB right now (optional)
+  location: string | null;
+  description: string | null;
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.48%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.48%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.48%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.48%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.48.jpeg",
+  // Optional fields (only if your DB has them)
+  coordinates?: { lat: number; lng: number } | null;
+  bedrooms: number | null;
+  bathrooms: number | null;
+  washrooms?: number | null;  // not in DB right now (optional)
+  buildingArea?: string | null;
+  landSize?: string | null;
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.49%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.49%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.49%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.49%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.49.jpeg",
+  images: string[];           // gallery URLs (images/videos)
+  slug?: string | null;       // keep for debugging
+};
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.50%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.50%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.50%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.50%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.50.jpeg",
+type DbListing = {
+  id: string;
+  slug: string | null;
+  title: string;
+  description: string | null;
+  location: string | null;
+  price: string | null;
+  bedrooms: number | null;
+  bathrooms: number | null;
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/4br-flat-roof-ruiru-mugutha/WhatsApp%20Image%202026-02-08%20at%2021.09.51.jpeg",
-]
+  // storage + media
+  media_bucket: string;       // default 'Listings Images'
+  media_prefix: string;
+  cover_image_url: string | null;
+};
 
-  },
+type DbMedia = {
+  bucket: string;             // default 'Listings Images'
+  object_path: string;        // 'folder/file.jpg'
+  kind: "image" | "video";
+  sort_order: number;
+  is_cover: boolean;
+};
 
-  {
-    id: "5br-luxury-home-kamakis",
-    title: "Luxury 5-Bedroom All-Ensuite Home with DSQ",
-    price: "KES 27M (Negotiable)",
-    country: "Kenya",
-    location: "Kamakis, Ruiru – Off Eastern Bypass near Thika Superhighway",
-    description:
-      "A newly built luxury 5-bedroom all-ensuite residence situated in a secure gated estate in Kamakis, one of Ruiru’s fastest-growing high-end residential zones. The property features a grand living room with expansive windows and modern lighting, a stylish fitted kitchen with granite countertops, pantry and breakfast area, a family TV/entertainment room, and a detached servant quarters (DSQ) with private access. Finished with premium porcelain tiles, gypsum ceilings, and high-quality fittings throughout. The home sits on a 50x100ft plot with cabro-paved parking, landscaped compound, and a clean freehold title deed.",
-    coordinates: { lat: -1.1249, lng: 37.0124 },
-    bedrooms: 5,
-    bathrooms: 5,
-    washrooms: 1,
-    buildingArea: "Approx. 4200 sq ft",
-    landSize: "50x100 ft",
-    images: [
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.07%20(1).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.07%20(2).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.07%20(3).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.07%20(4).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.07.jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.08%20(1).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.08%20(2).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.08%20(3).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.08%20(4).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.10%20(2).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.09%20(2).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/WhatsApp%20Image%202026-02-08%20at%2020.48.09%20(1).jpeg",
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/NEWLY%20BUILT%205%20BEDROOM%20HOUSE%20FOR%20SALE%20%20KAMAKIS,%20RUIRU/Bedroom%20House%20For%20Sale.mp4",
-    ],
-  },
+// Converts storage path into a usable public URL.
+// If your bucket is private, you’ll need signed URLs instead.
+function publicUrl(bucket: string, objectPath: string) {
+  return supabase.storage.from(bucket).getPublicUrl(objectPath).data.publicUrl;
+}
 
-  {
-    id: "4br-maisonette-kenyatta-road",
-    title: "Contemporary 4-Bedroom Maisonette with Prayer Room",
-    price: "KES 15M",
-    country: "Kenya",
-    location: "Kenyatta Road, Juja – 5km off Thika Road",
-    description:
-      "A modern and well-planned 4-bedroom maisonette located within a secure gated community along Kenyatta Road, Juja. The ground floor features a bright and spacious living room, separate dining area, guest bedroom ensuite, and an open-plan kitchen with granite countertops and pantry. The first floor hosts a master bedroom ensuite with a private balcony and two additional ensuite bedrooms. The second floor includes a dedicated prayer room. Externally, the property offers cabro-paved parking and sits on a standard 40x80ft plot, making it ideal for family living.",
-    coordinates: { lat: -1.1056, lng: 37.0019 },
-    bedrooms: 4,
-    bathrooms: 4,
-    washrooms: 1,
-    buildingArea: "Approx. 3000 sq ft",
-    landSize: "40x80 ft",
-    images: [
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.00%20(5).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.00.jpeg",
+// If cover_image_url is already a full URL, keep it.
+// If it looks like a storage object path, convert it.
+function normalizeCoverUrl(listing: DbListing) {
+  const cover = listing.cover_image_url;
+  if (!cover) return null;
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.01%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.01%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.01%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.01%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.01.jpeg",
+  // Heuristic: if it starts with http(s), it's already a URL.
+  if (/^https?:\/\//i.test(cover)) return cover;
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.02%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.02%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.02%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.02%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.02.jpeg",
+  // Otherwise treat as storage object_path
+  return publicUrl(listing.media_bucket ?? "Listings Images", cover);
+}
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.03%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.03%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.03.jpeg",
+/**
+ * Fetch all available listings (index page use).
+ * Returns the old "listings.ts array shape" so your UI stays the same.
+ */
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.04%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.04%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.04%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.04%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.04.jpeg",
+export async function getListings(): Promise<ListingShape[]> {
+  const { data, error } = await supabase
+    .from("listings")
+    .select(
+      "id,slug,title,description,location,price,bedrooms,bathrooms,media_bucket,media_prefix,cover_image_url"
+    )
+    .eq("status", "available");
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.05%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.05%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.05%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.05.jpeg",
+  if (error) throw new Error(error.message);
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.06%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.06%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.06%20(3).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.06%20(4).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.06.jpeg",
+  const rows = (data ?? []) as DbListing[];
 
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.07%20(1).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.07%20(2).jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Image%202026-02-08%20at%2020.44.07.jpeg",
-  "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Kenyatta-road-4-Bedroom/WhatsApp%20Video%202026-02-08%20at%2020.38.40.mp4",
-]
+  // Pull media in a single query for all listings (faster than N+1).
+  const ids = rows.map((r) => r.id);
+  let mediaByListing: Record<string, DbMedia[]> = {};
 
-  },
+  if (ids.length) {
+    const { data: mediaRows, error: mErr } = await supabase
+      .from("listing_media")
+      .select("listing_id,bucket,object_path,kind,sort_order,is_cover")
+      .in("listing_id", ids)
+      .order("sort_order", { ascending: true });
 
-  {
-    id: "thome-estate-mixed-development",
-    title: "Prime Residential Compound – Thome Estate",
-    price: "KES 100M",
-    country: "Kenya",
-    location: "Thome Estate – Less than 1km from Thika Road (Roasters)",
-    description:
-      "A rare prime residential compound in Thome Estate comprising a 5-bedroom all-ensuite maisonette plus an additional 4-bedroom maisonette, both finished to high standards. The property sits on approximately three-quarters of an acre and features wooden flooring, closed-plan kitchens with gypsum ceilings, cabro-paved compound, green recreational area, and reliable council water supply. Located less than 1km from Thika Road, this asset is ideal for executive residential use, embassy housing, or high-end redevelopment.",
-    coordinates: { lat: -1.2196, lng: 36.8843 },
-    bedrooms: 9,
-    bathrooms: 9,
-    washrooms: 2,
-    buildingArea: "Multiple Units",
-    landSize: "¾ Acre",
-    images: [
-      "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Listings%20Images/Thome/thome.mp4",]
-  },
-];
+    if (!mErr && mediaRows) {
+      mediaByListing = mediaRows.reduce((acc: Record<string, DbMedia[]>, m: unknown) => {
+        const media = m as DbMedia & { listing_id: string };
+        (acc[media.listing_id] ||= []).push(media);
+        return acc;
+      }, {});
+    }
+  }
+
+  return rows.map((l) => {
+    const media = mediaByListing[l.id] ?? [];
+
+    // Build gallery URLs: prefer listing_media, fallback to cover_image_url if no rows.
+    const images =
+      media.length > 0
+        ? media.map((m) => publicUrl(m.bucket, m.object_path))
+        : normalizeCoverUrl(l)
+          ? [normalizeCoverUrl(l)!]
+          : [];
+
+    return {
+      id: l.slug ?? l.id, // route param uses slug if present, else id
+      slug: l.slug,
+      title: l.title,
+      price: l.price,
+      location: l.location,
+      description: l.description,
+      bedrooms: l.bedrooms,
+      bathrooms: l.bathrooms,
+      images,
+    };
+  });
+}
+
+/**
+ * Fetch one listing for /listings/[slug]
+ * Looks up by slug first, then by id.
+ */
+export async function getListingBySlugOrId(slugOrId: string): Promise<ListingShape | null> {
+  // 1) slug lookup
+  let { data, error } = await supabase
+    .from("listings")
+    .select(
+      "id,slug,title,description,location,price,bedrooms,bathrooms,media_bucket,media_prefix,cover_image_url"
+    )
+    .eq("slug", slugOrId)
+    .maybeSingle();
+
+  // 2) fallback: id lookup
+  if (!data && !error) {
+    const res = await supabase
+      .from("listings")
+      .select(
+        "id,slug,title,description,location,price,bedrooms,bathrooms,media_bucket,media_prefix,cover_image_url"
+      )
+      .eq("id", slugOrId)
+      .maybeSingle();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data = res.data as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error = res.error as any;
+  }
+
+  if (error) throw new Error(error.message);
+  if (!data) return null;
+
+  const l = data as DbListing;
+
+  // Load ordered gallery
+  const { data: mediaRows, error: mErr } = await supabase
+    .from("listing_media")
+    .select("bucket,object_path,kind,sort_order,is_cover")
+    .eq("listing_id", l.id)
+    .order("sort_order", { ascending: true });
+
+  if (mErr) throw new Error(mErr.message);
+
+  const media = (mediaRows ?? []) as DbMedia[];
+
+  const images =
+    media.length > 0
+      ? media.map((m) => publicUrl(m.bucket, m.object_path))
+      : normalizeCoverUrl(l)
+        ? [normalizeCoverUrl(l)!]
+        : [];
+
+  return {
+    id: l.slug ?? l.id,
+    slug: l.slug,
+    title: l.title,
+    price: l.price,
+    location: l.location,
+    description: l.description,
+    bedrooms: l.bedrooms,
+    bathrooms: l.bathrooms,
+    images,
+  };
+}

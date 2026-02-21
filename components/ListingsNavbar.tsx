@@ -33,7 +33,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`absolute w-full z-50 transition-all duration-300 ${
         isScrolled ? "glass-nav py-3" : "bg-transparent py-6"
       }`}
     >
@@ -72,7 +72,7 @@ export default function Navbar() {
                 className={`font-medium hover:text-red-700 focus:text-red-800 transition-colors ${
                   isScrolled
                     ? "text-gray-900 hover:text-rise-red"
-                    : "text-gray-60 hover:text-rise-red"
+                    : "text-gray-900 hover:text-rise-red"
                 }`}
               >
                 {link.name}
@@ -84,7 +84,7 @@ export default function Navbar() {
             className={`border px-6 py-2.5 hidden lg:block font-medium transition-colors${
               isScrolled
                 ? "bg-transparent text-gray-900 border-gray-900 hover:bg-red-700 hover:text-white hover:border-red-700 focus:bg-red-800 focus:text-white focus:border-red-800"
-                : "bg-transparent text-white border-[#ffff] hover:bg-red-700 hover:text-gray-50 hover:border-red-700 focus:bg-red-800 focus:text-gray-50 focus:border-red-800"
+                : "bg-transparent text-gray-900 border-gray-900 hover:bg-red-700 hover:text-gray-50 hover:border-red-700 focus:bg-red-800 focus:text-gray-50 focus:border-red-800"
             }`}
           >
             Contact Us
