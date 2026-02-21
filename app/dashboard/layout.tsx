@@ -15,24 +15,22 @@ export default function DashboardLayout({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <>
-    <div className="dashboard-layout">
-      <Sidebar 
-        collapsed={sidebarCollapsed} 
-        setCollapsed={setSidebarCollapsed} 
-      />
-      <div className={`dashboard-main ${sidebarCollapsed ? 'expanded' : ''}`}>
-        <Header />
-        <div className="dashboard-content">
-          {children}
+    <div className="dashboard-shell">
+      <div className="dashboard-layout">
+        <Sidebar
+          collapsed={sidebarCollapsed}
+          setCollapsed={setSidebarCollapsed}
+        />
+        <div className={`dashboard-main ${sidebarCollapsed ? "expanded" : ""}`}>
+          <Header />
+          <div className="dashboard-content">
+            {children}
+          </div>
         </div>
-        
-       
       </div>
-    </div> 
-    <div className="inline flex">
-    <Footer />
+      <div className="dashboard-global-footer">
+        <Footer />
+      </div>
     </div>
-    </>
   );
 }

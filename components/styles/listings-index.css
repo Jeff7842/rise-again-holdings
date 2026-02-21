@@ -110,17 +110,94 @@
   font-size: 13px;
 }
 
+.filter-toggle {
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.filter-toggle.active {
+  border-color: #d12027;
+  color: #d12027;
+}
+
+.filter-toggle-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.listings-filters-panel {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8fafc;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-field label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.filter-field select,
+.filter-field input {
+  height: 40px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  padding: 0 10px;
+  background: white;
+  color: #111827;
+  font-size: 13px;
+}
+
+.clear-filters-btn {
+  height: 40px;
+  align-self: end;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clear-filters-btn:hover {
+  border-color: #d12027;
+  color: #d12027;
+}
+
 .listings-content {
   max-width: 1800px;
   margin: 0 auto;
   padding: 22px 20px 60px;
 }
 
-/* Flexible grid that can reach 10 columns on ultrawide */
+/* Flexible grid */
 .listings-grid {
   display: grid;
-  gap: 14px;
-  grid-template-columns: repeat(5, 1fr);/* mobile default */
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .listing-card {
@@ -140,7 +217,7 @@
 .listing-card-media {
   position: relative;
   display: block;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 10.5;
   background: #f3f4f6;
 }
 
@@ -166,6 +243,43 @@ top: 10px;
   font-size: 12px;
 }
 
+.status-badge-card {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: capitalize;
+  z-index: 2;
+}
+
+.status-badge-card.available {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status-badge-card.sold {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status-badge-card.pending {
+  background: #fed7aa;
+  color: #ea580c;
+}
+
+.status-badge-card.hidden {
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+.status-badge-card.unknown {
+  background: #e2e8f0;
+  color: #475569;
+}
+
 .listing-card-body {
   padding: 12px 12px 14px;
 }
@@ -176,6 +290,11 @@ top: 10px;
   line-height: 1.25;
   font-weight: 850;
   color: #111827;
+  min-height: 2.5em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .listing-card-title a {
@@ -190,6 +309,13 @@ top: 10px;
   margin-top: 8px;
   color: #4b5563;
   font-size: 13px;
+  min-height: 1.2em;
+}
+
+.listing-card-location span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .listing-card-meta {
@@ -256,4 +382,190 @@ top: 10px;
 
 .state-error {
   border-color: rgba(220, 38, 38, 0.35);
+}
+
+@media (min-width: 1600px) {
+  .listings-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .listings-content,
+  .listings-header-inner {
+    max-width: 2000px;
+  }
+}
+
+@media (min-width: 2200px) {
+  .listings-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1200px) {
+  .listings-header-inner {
+    padding: 16px;
+  }
+
+  .listings-content {
+    padding: 18px 16px 50px;
+  }
+
+  .listings-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .searchbox input {
+    width: min(420px, 74vw);
+  }
+
+  .listings-filters-panel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .listings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .listings-controls {
+    width: 100%;
+  }
+
+  .searchbox {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .searchbox input {
+    width: 100%;
+  }
+
+  .sortbox select {
+    min-width: 170px;
+  }
+
+  .listings-filters-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .listings-page {
+    padding-top: 84px;
+  }
+
+  .listings-title {
+    font-size: 22px;
+  }
+
+  .listings-subtitle {
+    font-size: 13px;
+  }
+
+  .listings-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .searchbox,
+  .sortbox,
+  .filter-toggle,
+  .results-pill {
+    width: 100%;
+  }
+
+  .searchbox input,
+  .sortbox select {
+    border-radius: 12px;
+    height: 46px;
+    font-size: 16px;
+  }
+
+  .searchbox-icon,
+  .sortbox-icon {
+    left: 16px;
+  }
+
+  .searchbox input {
+    padding-left: 44px;
+  }
+
+  .filter-toggle {
+    justify-content: center;
+    height: 46px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .results-pill {
+    border-radius: 12px;
+    height: 42px;
+  }
+
+  .results-pill {
+    justify-content: center;
+  }
+
+  .listings-filters-panel {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+    margin-top: 4px;
+    border-radius: 14px;
+    background: #ffffff;
+    max-height: 68vh;
+    overflow-y: auto;
+  }
+
+  .filter-field {
+    gap: 5px;
+  }
+
+  .filter-field label {
+    font-size: 13px;
+  }
+
+  .filter-field select,
+  .filter-field input {
+    height: 44px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  .clear-filters-btn {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .listings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-card-media {
+    aspect-ratio: 16 / 11;
+  }
+}
+
+@media (max-width: 420px) {
+  .listings-header-inner {
+    padding: 14px 12px;
+  }
+
+  .listings-content {
+    padding: 16px 12px 44px;
+  }
+
+  .listings-title {
+    font-size: 20px;
+  }
+
+  .listings-filters-panel {
+    padding: 10px;
+  }
 }

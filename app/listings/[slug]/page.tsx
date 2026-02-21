@@ -6,39 +6,7 @@ import { MapPin, Maximize, Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Footer from '@/components/Footer';
-
-function ContactAgentForm({ listing }: { listing: string }) {
-  return (
-    <form className="contact-form">
-      <h3>Contact Agent</h3>
-      <p className="contact-form-subtitle">
-        Enquire about this property and receive a private briefing.
-      </p>
-
-      <input placeholder="Your Name" required />
-      <input placeholder="Country" required />
-      <input type="email" placeholder="Email" required />
-      <input placeholder="Phone Number" required />
-      <textarea placeholder="Message" defaultValue={`I'm interested in ${listing}`} />
-
-      <div className="form-group">
-        <label className="form-label">Preferred Contact Method</label>
-        <div className="contact-checkbox">
-          {["Phone", "Email", "WhatsApp"].map((method) => (
-            <label key={method} className="checkbox-wrapper">
-              <input className="checkbox-input" type="radio" name="contactMethod" value={method} />
-              <span className="checkbox-tile">
-                <span className="checkbox-label">{method}</span>
-              </span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <button type="submit">Contact Agent</button>
-    </form>
-  );
-}
+import ContactAgentForm from "@/components/ContactAgentForm";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MoreListings({ current, listings }: { current: string; listings: any[] }) {
@@ -185,7 +153,7 @@ export default async function ListingDetails({
                 <p>{listing.description}</p>
               </div>
 
-              <div className="features-card">
+              <div className="features-card ">
                 <h3>Key Features</h3>
                 <div className="key-features-grid">
                   {featuredHighlights.map((feature) => (
@@ -194,22 +162,16 @@ export default async function ListingDetails({
                       <div className="feature-icon-wrap">
                         <Maximize className="feature-icon" />
                       </div>
-                      <span>{feature}</span>
+                      <span className="text-black">{feature}</span>
                     </div>
                   ))}
                 </div>
               </div>
-            </article>
 
-            <aside className="details-sidebar">
-              <ContactAgentForm listing={listing.title} />
-            </aside>
-          </div>
-        </section>
+              <div className="listing-section">
 
-        <section className="listing-section">
-          <section className="all-features">
-            <div className="section-heading">
+              <div className="all-features">
+            <div className="div-heading">
               <h3>All Features</h3>
             </div>
             <div className="all-features-grid">
@@ -219,7 +181,17 @@ export default async function ListingDetails({
                 </div>
               ))}
             </div>
-          </section>
+          </div>
+          </div>
+            </article>
+
+            <aside className="details-sidebar">
+              <ContactAgentForm
+                listingTitle={listing.title ?? "this property"}
+                listingId={listing.id}
+              />
+            </aside>
+          </div>
         </section>
 
         <section className="listing-section">

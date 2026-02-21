@@ -1,10 +1,11 @@
 // app/contact/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent, type CSSProperties } from "react";
 import Navbar from "@/components/Navbar"; // adjust path if needed
 import { MapPin, Phone, Mail, Clock, ChevronDown, ChevronUp } from "lucide-react";
 import Footer from '@/components/Footer';
+import { supabase } from "@/lib/supabaseClient";
 
 const reasons = [
   {
@@ -49,6 +50,50 @@ const faqs = [
 
 export default function ContactPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("");
+
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleContactSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("");
+
+    const { error } = await supabase.rpc("ingest_contact_form_message", {
+      p_source: "contact_page",
+      p_full_name: formData.fullName,
+      p_email: formData.email,
+      p_phone: formData.phone,
+      p_subject: "Contact page enquiry",
+      p_body_text: formData.message,
+      p_listing_id: null,
+    });
+
+    if (error) {
+      setSubmitStatus("Could not send message right now. Please try again.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    setSubmitStatus("Message sent successfully. We will reply by email.");
+    setFormData({
+      fullName: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+    setIsSubmitting(false);
+  };
 
   // Pattern style from user example
   const patternStyle = {
@@ -61,7 +106,7 @@ export default function ContactPage() {
     backgroundSize: "var(--s) var(--s)",
     backgroundRepeat: "repeat",        // bg-repeat
   backgroundAttachment: "fixed",     // bg-fixed
-  } as React.CSSProperties;
+  } as CSSProperties;
 
   return (
     <>
@@ -112,16 +157,18 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Left: Form */}
               <div className="luxury-card p-8">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleContactSubmit}>
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
                       Full Name
                     </label>
                     <input
                       type="text"
-                      id="name"
+                      id="fullName"
                       className="w-full px-4 py-3 border text-black border-gray-300 focus:border-red-700 focus:ring-1 focus:ring-red-700 outline-none transition"
                       placeholder="John Doe"
+                      value={formData.fullName}
+                      onChange={handleFormChange}
                     />
                   </div>
                   <div>
@@ -133,6 +180,8 @@ export default function ContactPage() {
                       id="email"
                       className="w-full px-4 py-3 border text-black border-gray-300 focus:border-red-700 focus:ring-1 focus:ring-red-700 outline-none transition"
                       placeholder="johndoe@example.com"
+                      value={formData.email}
+                      onChange={handleFormChange}
                     />
                   </div>
                   <div>
@@ -144,6 +193,8 @@ export default function ContactPage() {
                       id="phone"
                       className="w-full px-4 py-3 border text-black border-gray-300 focus:border-red-700 focus:ring-1 focus:ring-red-700 outline-none transition"
                       placeholder="+254 700 000 000"
+                      value={formData.phone}
+                      onChange={handleFormChange}
                     />
                   </div>
                   <div>
@@ -155,14 +206,20 @@ export default function ContactPage() {
                       rows={5}
                       className="w-full px-4 py-3 border text-black border-gray-300 focus:border-red-700 focus:ring-1 focus:ring-red-700 outline-none transition"
                       placeholder="I'm interested in..."
+                      value={formData.message}
+                      onChange={handleFormChange}
                     />
                   </div>
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="w-full bg-red-700 text-white px-8 py-4 font-medium hover:bg-red-800 transition-colors"
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
+                  {submitStatus && (
+                    <p className="text-sm text-gray-700">{submitStatus}</p>
+                  )}
                 </form>
               </div>
 

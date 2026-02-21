@@ -1,8 +1,15 @@
 /* components/styles/dashboard.css */
+.dashboard-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .dashboard-layout {
   display: flex;
-  min-height: 100vh;
+  flex: 1;
   background: #f8fafc;
+  align-items: flex-start;
 }
 
 /* Sidebar Styles */
@@ -12,10 +19,12 @@
   border-right: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position: sticky;
+  top: 0;
   height: 100vh;
   transition: width 0.3s ease;
   z-index: 50;
+  flex-shrink: 0;
 }
 
 .dashboard-sidebar.collapsed {
@@ -165,12 +174,16 @@
 /* Dashboard Main */
 .dashboard-main {
   flex: 1;
-  margin-left: 280px;
+  margin-left: 0;
   transition: margin-left 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .dashboard-main.expanded {
-  margin-left: 80px;
+  margin-left: 0;
 }
 
 /* Header Styles */
@@ -410,6 +423,18 @@
 /* Dashboard Content */
 .dashboard-content {
   padding: 2rem;
+}
+
+.dashboard-main > .dashboard-content {
+  flex: 1;
+}
+
+.dashboard-global-footer {
+  margin-top: auto;
+}
+
+.dashboard-footer {
+  margin-top: auto;
 }
 
 /* Overview Page */
@@ -939,6 +964,18 @@
   }
 }
 
+@media (min-width: 1700px) {
+  .listings-container.grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 2200px) {
+  .listings-container.grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
 @media (max-width: 1200px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -950,13 +987,19 @@
 }
 
 @media (max-width: 992px) {
+  .dashboard-layout {
+    display: block;
+  }
+
   .dashboard-sidebar {
-    transform: translateX(-100%);
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none;
   }
   
   .dashboard-sidebar.collapsed {
-    transform: translateX(0);
-    width: 280px;
+    width: 100%;
   }
   
   .dashboard-main {
@@ -1003,6 +1046,16 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+  }
+
+  .listings-container.list .listing-item {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .listings-container.list .listing-image {
+    width: 100%;
+    height: 200px;
   }
 }
 

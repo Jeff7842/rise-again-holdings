@@ -44,6 +44,7 @@ body {
   border-radius: 999px;
   height: 50px;
   background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   padding: 0 1rem 0 2.8rem;
   font-size: 0.95rem;
@@ -276,6 +277,7 @@ body {
   border-radius: 8px;
   padding: 0.65rem 0.75rem;
   min-height: 52px;
+  color: #111;
 }
 
 .feature-icon-wrap {
@@ -387,8 +389,8 @@ body {
 
 .more-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.9rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .card {
@@ -407,26 +409,33 @@ body {
 
 .card img {
   width: 100%;
-  height: 140px;
+  height: 180px;
   object-fit: cover;
 }
 
 .card h4 {
   margin: 0.55rem 0.65rem 0.25rem;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  min-height: 2.45em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   color: #1f1f1f;
 }
 
 .card p {
   margin: 0 0.65rem 0.45rem;
   font-size: 0.82rem;
+  line-height: 1.35;
   color: #666;
 }
 
 .card-price {
   font-weight: 700;
   color: #842024;
-  padding-bottom: 0.3rem;
+  padding-bottom: 0.6rem;
 }
 
 .scroll-row {
@@ -476,7 +485,7 @@ body {
 
 @media (max-width: 1200px) {
   .more-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -495,7 +504,7 @@ body {
   }
 
   .more-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .scroll-row {
@@ -520,15 +529,31 @@ body {
   .more-grid {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(72%, 1fr);
+    grid-auto-columns: minmax(84%, 1fr);
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    padding-bottom: 0.45rem;
+    gap: 0.7rem;
+    padding: 0 0.1rem 0.45rem;
     scroll-snap-type: x mandatory;
   }
 
   .card {
     scroll-snap-align: start;
+    border-radius: 12px;
+  }
+
+  .card img {
+    height: 170px;
+  }
+
+  .card h4 {
+    font-size: 0.92rem;
+    margin: 0.6rem 0.7rem 0.3rem;
+  }
+
+  .card p {
+    margin: 0 0.7rem 0.5rem;
+    font-size: 0.83rem;
   }
 
   .more-grid::-webkit-scrollbar {
@@ -542,5 +567,17 @@ body {
 
   .all-features-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1500px) {
+  .more-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 2100px) {
+  .more-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
