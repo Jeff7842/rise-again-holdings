@@ -135,7 +135,7 @@ export default function Home() {
     <Navbar />
       <section
         id="home"
-        className="relative min-h-[130vh] md:min-h-screen flex items-center px-6"
+        className="relative min-h-[100vh] md:min-h-[130vh] md:min-h-screen flex items-center px-0 md:px-0"
         style={{
           backgroundImage: `
       linear-gradient(135deg, rgba(135, 206, 235, 0.95) 10%, rgba(255, 255, 255, 0.05) 80%),
@@ -146,7 +146,7 @@ export default function Home() {
           backgroundPosition: "center, center",
         }}
       >
-        <div className="container mx-auto px-4 py-20 mt-25 ml-15">
+        <div className="container mx-auto px-6 md:px-4 py-20 mt-25 ml-0 md:ml-15 text-left md:text-left">
           <div className="max-w-3xl">
             <div className="mb-8">
               <span className="text-[#D2242A] text-xs md:text-[16px] font-semibold uppercase tracking-wider">
@@ -172,7 +172,7 @@ export default function Home() {
             </div>
 
             {/* Stats */}
-            <div className="mt-15 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="mt-15 md:mt-20 md:grid flex  md:grid-cols-3 gap-8">
               <div>
                 <div className="text-4xl font-bold text-gray-900">100+</div>
                 <div className="text-gray-100 mt-2">Units Ready</div>
