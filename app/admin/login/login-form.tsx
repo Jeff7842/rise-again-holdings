@@ -8,6 +8,7 @@ import { Lock } from "lucide-react";
 export default function AdminLoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -18,18 +19,30 @@ export default function AdminLoginForm() {
     const email = String(form.get("email") || "");
     const password = String(form.get("password") || "");
 
-    try {
-      // Wire this to NextAuth or your Go endpoint.
-      // Example: const res = await fetch("/api/admin/login", { method: "POST", body: JSON.stringify({email,password}) })
-      // If using NextAuth: await signIn("credentials", { email, password, callbackUrl: "/admin" })
+    
 
-      await new Promise((r) => setTimeout(r, 600)); // demo delay
-      throw new Error("Replace demo with real auth call.");
-    } catch (err: any) {
-      setError(err?.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
+    try {
+  setError(null);
+
+  const res = await fetch("/auth/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data?.error || "Invalid credentials");
+  }
+
+  // ✅ success — redirect to admin dashboard (or whatever)
+  window.location.href = "/dashboard";
+} catch (err: any) {
+  setError(err?.message || "Login failed");
+} finally {
+  setLoading(false);
+}
   }
 
   return (
