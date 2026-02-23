@@ -63,7 +63,7 @@ export default function AdminLoginForm() {
             name="password"
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
-            placeholder="●●●●●●●●●"
+            placeholder="••••••••••••"
             required
             disabled={loading}
           />
