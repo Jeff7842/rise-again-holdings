@@ -3,12 +3,12 @@
 "use client";
 
 import { useState } from "react";
-import { Lock } from "lucide-react";
+import { Eye, EyeOff, Lock } from "lucide-react";
 
 export default function AdminLoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+  const [showPassword, setShowPassword] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,30 +19,27 @@ export default function AdminLoginForm() {
     const email = String(form.get("email") || "");
     const password = String(form.get("password") || "");
 
-    
-
     try {
-  setError(null);
+      setError(null);
 
-  const res = await fetch("/auth/admin/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
+      const res = await fetch("/auth/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-  const data = await res.json().catch(() => ({}));
+      const data = await res.json().catch(() => ({}));
 
-  if (!res.ok) {
-    throw new Error(data?.error || "Invalid credentials");
-  }
+      if (!res.ok) {
+        throw new Error(data?.error || "Invalid credentials");
+      }
 
-  // ✅ success — redirect to admin dashboard (or whatever)
-  window.location.href = "/dashboard";
-} catch (err: any) {
-  setError(err?.message || "Login failed");
-} finally {
-  setLoading(false);
-}
+      window.location.href = "/dashboard";
+    } catch (err: any) {
+      setError(err?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -61,14 +58,26 @@ export default function AdminLoginForm() {
 
       <label className="admin-login__field">
         <span>Password</span>
-        <input
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          placeholder="••••••••••••"
-          required
-          disabled={loading}
-        />
+        <div className="admin-login__passwordWrap">
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            autoComplete="current-password"
+            placeholder="●●●●●●●●●"
+            required
+            disabled={loading}
+          />
+          <button
+            type="button"
+            className="admin-login__passwordToggle"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            aria-pressed={showPassword}
+            disabled={loading}
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
       </label>
 
       <div className="admin-login__row">
@@ -97,14 +106,14 @@ export default function AdminLoginForm() {
       )}
 
       <button className="admin-login__button" type="submit" disabled={loading}>
-        {loading ? "Signing in…" : "Sign in"}
+        {loading ? "Signing in..." : "Sign in"}
         <span className="admin-login__buttonGlow" aria-hidden="true" />
       </button>
 
       <div className="admin-login__fineprint">
-  <Lock size={16} strokeWidth={2.2} className="admin-login__lock" />
-  <span>Secure admin access. All activity is logged.</span>
-</div>
+        <Lock size={16} strokeWidth={2.2} className="admin-login__lock" />
+        <span>Secure admin access. All activity is logged.</span>
+      </div>
     </form>
   );
 }

@@ -33,13 +33,13 @@ export default function AdminLoginPage() {
         <div className="admin-login__card">
           <div className="admin-login__cardHeader">
             <h1>Welcome back</h1>
-            <p>Sign in to manage listings, users, and operations.</p>
+            <p>Sign in to continue.</p>
           </div>
 
           <AdminLoginForm />
         </div>
 
-        <footer className="admin-login__footer">
+        <footer className="admin-login__footer mt-20">
           <span>© {new Date().getFullYear()} Rise Again Holdings</span>
           <span className="admin-login__sep" aria-hidden="true">•</span>
           <Link className="admin-login__link" href="/">Back to site</Link>

@@ -196,11 +196,11 @@ html[data-theme="dark"] .admin-login__themePill {
 .admin-login__card {
   border-radius: 26px;
   padding: 28px;
-  background: var(--admin-card);
+  background:#14151a;
   border: 1px solid var(--admin-border);
   box-shadow: var(--admin-shadow);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
   width: 450px;
@@ -276,6 +276,39 @@ html[data-theme="dark"] .admin-login__themePill {
   box-shadow: 0 0 0 6px var(--admin-ring);
 }
 
+.admin-login__passwordWrap {
+  position: relative;
+}
+
+.admin-login__passwordWrap input {
+  padding-right: 48px;
+}
+
+.admin-login__passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--admin-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 0;
+}
+
+.admin-login__passwordToggle:hover {
+  color: var(--admin-fg);
+}
+
+.admin-login__passwordToggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .admin-login__row {
   display: flex;
   align-items: center;
@@ -304,7 +337,7 @@ html[data-theme="dark"] .admin-login__themePill {
   text-decoration: none;
   color: inherit;
   opacity: 0.78;
-  transition: var(--transition);
+  transition: transform 0.8s ease-in-out;
   border-bottom: 1px solid transparent;
   font-size: 12px;
 }
@@ -327,7 +360,7 @@ html[data-theme="dark"] .admin-login__themePill {
   color: white;
   background: linear-gradient(135deg, var(--rise-red), var(--rise-red-dark));
   box-shadow: 0 18px 45px rgba(209, 32, 39, 0.22);
-  transition: var(--transition);
+  transition: transform 0.8s ease-in-out;
   overflow: hidden;
 }
 
@@ -346,13 +379,14 @@ html[data-theme="dark"] .admin-login__themePill {
   inset: -40%;
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45), transparent 45%);
   transform: translateX(-30%);
-  transition: var(--transition);
+  transition: transform 0.5s ease-in-out;
   opacity: 0.55;
 }
 
 .admin-login__button:hover .admin-login__buttonGlow {
   transform: translateX(20%);
   opacity: 0.75;
+  transition: transform 0.5s ease-in-out;
 }
 
 /* Fineprint */
@@ -385,13 +419,14 @@ html[data-theme="dark"] .admin-login__themePill {
 
 /* Footer */
 .admin-login__footer {
-  margin-top: 18px;
+  margin-top:58px;
   display: flex;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
   opacity: 0.75;
   font-size: 0.9rem;
+  letter-spacing: 0.05em;
 }
 
 .admin-login__sep {
