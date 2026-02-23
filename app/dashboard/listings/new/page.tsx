@@ -425,6 +425,18 @@ if (mediaInsertError) throw mediaInsertError;
     }
   };
 
+  const formatWithCommas = (value: number | string) => {
+  const n = typeof value === "number" ? value : Number(String(value).replace(/,/g, ""));
+  if (!n) return "";
+  return n.toLocaleString("en-KE");
+};
+
+const parseNumber = (raw: string) => {
+  // keep digits only
+  const digits = raw.replace(/[^\d]/g, "");
+  return digits ? Number(digits) : 0;
+};
+
   return (
     <div className="new-listing-page">
       <div className="page-header">
@@ -695,7 +707,8 @@ if (mediaInsertError) throw mediaInsertError;
               <div className="input-with-icon">
                 <DollarSign size={18} />
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                   required
                   min="50000"
                   step="10000"
