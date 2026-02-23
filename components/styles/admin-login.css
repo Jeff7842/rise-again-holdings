@@ -1,0 +1,410 @@
+/* app/admin/login/admin-login.css */
+/* Built to align with your Main.css tokens but unique layout & motion */
+
+/* If Main.css is global already, great. If not, ensure your root layout imports it. */
+:root {
+  --admin-bg: var(--white);
+  --admin-fg: var(--dark-gray);
+  --admin-muted: rgba(74, 74, 74, 0.85);
+  --admin-card: rgba(255, 255, 255, 0.72);
+  --admin-border: rgba(209, 32, 39, 0.12);
+  --admin-shadow: 0 30px 80px rgba(0, 0, 0, 0.14);
+  --admin-input: rgba(255, 255, 255, 0.65);
+  --admin-input-border: rgba(0, 0, 0, 0.08);
+  --admin-ring: rgba(209, 32, 39, 0.22);
+}
+
+html[data-theme="dark"] {
+  --admin-bg: #0c0d10;
+  --admin-fg: rgba(255, 255, 255, 0.92);
+  --admin-muted: rgba(255, 255, 255, 0.64);
+  --admin-card: rgba(20, 22, 28, 0.68);
+  --admin-border: rgba(212, 175, 55, 0.16);
+  --admin-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+  --admin-input: rgba(10, 11, 14, 0.55);
+  --admin-input-border: rgba(255, 255, 255, 0.10);
+  --admin-ring: rgba(212, 175, 55, 0.22);
+}
+
+.admin-login {
+  min-height: 100svh;
+  background: #232323;
+  color: var(--admin-fg);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* Background */
+.admin-login__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.admin-login__grid {
+  position: absolute;
+  inset: -2px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.2) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at 50% 40%, black 0 55%, transparent 70%);
+  opacity: 0.9;
+}
+
+.admin-login__orb {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  filter: blur(42px);
+  opacity: 0.55;
+  transform: translate3d(0,0,0);
+}
+
+.admin-login__orb--one {
+  top: -180px;
+  left: -180px;
+  background: radial-gradient(circle at 30% 30%, var(--rise-red) 0%, transparent 55%);
+  animation: floaty 10s ease-in-out infinite;
+}
+
+.admin-login__orb--two {
+  bottom: -220px;
+  right: -220px;
+  background: radial-gradient(circle at 55% 55%, var(--luxury-gold) 0%, transparent 58%);
+  animation: floaty 12s ease-in-out infinite reverse;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(18px) translateX(12px); }
+}
+
+/* Shell */
+.admin-login__shell {
+  width: min(980px, 100%);
+  position: relative;
+  z-index: 1;
+}
+
+.admin-login__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+/* Brand */
+.admin-login__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.admin-login__brandMark {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--rise-red), var(--rise-red-dark));
+  color: white;
+  box-shadow: 0 12px 30px rgba(209, 32, 39, 0.22);
+}
+
+.admin-login__brandText {
+  display: grid;
+  line-height: 1.1;
+}
+
+.admin-login__brandText strong {
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.admin-login__brandText span {
+  font-size: 0.78rem;
+  opacity: 0.72;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Theme toggle */
+.admin-login__theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--admin-input-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.admin-login__theme:hover {
+  transform: translateY(-1px);
+  border-color: var(--admin-border);
+}
+
+.admin-login__themePill {
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.12);
+  border: 1px solid var(--admin-input-border);
+  position: relative;
+}
+
+html[data-theme="dark"] .admin-login__themePill {
+  background: rgba(255,255,255,0.10);
+}
+
+.admin-login__themeKnob {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: var(--transition);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, var(--rise-red), var(--luxury-gold));
+}
+
+.admin-login__themeKnob.is-light { left: 3px; }
+.admin-login__themeKnob.is-dark { left: 23px; }
+
+.admin-login__themeLabel {
+  font-size: 0.9rem;
+  opacity: 0.82;
+}
+
+/* Card */
+.admin-login__card {
+  border-radius: 26px;
+  padding: 28px;
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  position: relative;
+  overflow: hidden;
+  width: 450px;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+}
+
+.admin-login__card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(circle at 20% 10%, rgba(209, 32, 39, 0.18), transparent 35%),
+              radial-gradient(circle at 80% 0%, rgba(212, 175, 55, 0.14), transparent 40%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.admin-login__cardHeader {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 18px;
+}
+
+.admin-login__cardHeader h1 {
+  font-size: 2.15rem;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.03em;
+}
+
+.admin-login__cardHeader p {
+  margin: 0;
+  color: var(--admin-muted);
+  font-size: 1.02rem;
+}
+
+/* Form */
+.admin-login__form {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.admin-login__field {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-login__field span {
+  font-size: 0.92rem;
+  opacity: 0.86;
+}
+
+.admin-login__field input {
+  width: 100%;
+  border-radius: 14px;
+  padding: 14px 14px;
+  border: 1px solid var(--admin-input-border);
+  background: var(--admin-input);
+  color: var(--admin-fg);
+  outline: none;
+  transition: var(--transition);
+}
+
+.admin-login__field input::placeholder {
+  opacity: 0.55;
+}
+
+.admin-login__field input:focus {
+  border-color: var(--admin-border);
+  box-shadow: 0 0 0 6px var(--admin-ring);
+}
+
+.admin-login__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.admin-login__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+}
+
+.admin-login__checkbox input {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--rise-red);
+}
+
+.admin-login__link {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.78;
+  transition: var(--transition);
+  border-bottom: 1px solid transparent;
+  font-size: 12px;
+}
+
+.admin-login__link:hover {
+  opacity: 1;
+  border-bottom-color: rgba(212, 175, 55, 0.45);
+}
+
+/* Button */
+.admin-login__button {
+  margin-top: 6px;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: white;
+  background: linear-gradient(135deg, var(--rise-red), var(--rise-red-dark));
+  box-shadow: 0 18px 45px rgba(209, 32, 39, 0.22);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.admin-login__button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 22px 60px rgba(209, 32, 39, 0.30);
+}
+
+.admin-login__button:active {
+  transform: translateY(0px);
+}
+
+.admin-login__buttonGlow {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45), transparent 45%);
+  transform: translateX(-30%);
+  transition: var(--transition);
+  opacity: 0.55;
+}
+
+.admin-login__button:hover .admin-login__buttonGlow {
+  transform: translateX(20%);
+  opacity: 0.75;
+}
+
+/* Fineprint */
+.admin-login__fineprint {
+  margin-top: 30px;
+  font-size: 0.88rem;
+  color: var(--admin-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-align:center;
+  padding-left: 0;
+  justify-self: center;
+  justify-content: center;
+}
+
+.admin-login__dot {
+  width: 20px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--luxury-gold), var(--rise-red));
+}
+
+.admin-login__lock {
+  color: var(--rise-red);
+  flex-shrink: 0;
+  justify-content: center;
+  align-self: center;
+}
+
+/* Footer */
+.admin-login__footer {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  opacity: 0.75;
+  font-size: 0.9rem;
+}
+
+.admin-login__sep {
+  opacity: 0.6;
+}
+
+@media (max-width: 520px) {
+  .admin-login__card {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .admin-login__cardHeader h1 {
+    font-size: 1.85rem;
+  }
+}
