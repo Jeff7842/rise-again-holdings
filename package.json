@@ -22,7 +22,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.97.0",
+    "@supabase/supabase-js": "^2.99.1",
+    "brevo": "^1.0.0",
     "lucide": "^0.563.0",
     "lucide-react": "^0.563.0",
     "next-app": "^0.0.0",
