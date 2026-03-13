@@ -103,18 +103,16 @@ export default function Footer() {
 
           <div>
             <h4 className="font-bold text-lg mb-6">Contact</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 mb-10">
               <li className="text-gray-400">
-                Email: contact@riseagainholdings.com
+                Email: info@riseagainholdings.com
               </li>
               <li className="text-gray-400">Phone: +254 718 551 831</li>
-              <li className="text-gray-400">
-                Address: Westalnads, Nairobi
-              </li>
+              
             </ul>
-            <button className="mt-6 bg-transparent border border-red-600 text-white px-6 py-2.5 font-medium hover:bg-red-700  hover:border-red-700 focus:bg-red-700  focus:border-red-700 focus:text-gray-200 focus:scale-[0.98] transition-colors">
+            <a href="/contact"  className="mt-6 bg-transparent border border-red-600 text-white px-6 py-2.5 font-medium hover:bg-red-700  hover:border-red-700 focus:bg-red-700  focus:border-red-700 focus:text-gray-200 focus:scale-[0.98] transition-colors">
               Get In Touch
-            </button>
+            </a>
           </div>
         </div>
 

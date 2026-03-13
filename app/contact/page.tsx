@@ -5,7 +5,6 @@ import { useState, type ChangeEvent, type FormEvent, type CSSProperties } from "
 import Navbar from "@/components/Navbar"; // adjust path if needed
 import { MapPin, Phone, Mail, Clock, ChevronDown, ChevronUp } from "lucide-react";
 import Footer from '@/components/Footer';
-import { supabase } from "@/lib/supabaseClient";
 
 const reasons = [
   {
@@ -48,6 +47,8 @@ const faqs = [
   },
 ];
 
+
+
 export default function ContactPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [formData, setFormData] = useState({
@@ -65,35 +66,45 @@ export default function ContactPage() {
   };
 
   const handleContactSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus("");
+  e.preventDefault();
+  setIsSubmitting(true);
+  setSubmitStatus("");
 
-    const { error } = await supabase.rpc("ingest_contact_form_message", {
-      p_source: "contact_page",
-      p_full_name: formData.fullName,
-      p_email: formData.email,
-      p_phone: formData.phone,
-      p_subject: "Contact page enquiry",
-      p_body_text: formData.message,
-      p_listing_id: null,
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     });
 
-    if (error) {
-      setSubmitStatus("Could not send message right now. Please try again.");
+    const data = await res.json();
+
+    if (!res.ok) {
+      setSubmitStatus(data.error || "Could not send message right now. Please try again.");
       setIsSubmitting(false);
       return;
     }
 
-    setSubmitStatus("Message sent successfully. We will reply by email.");
+    if (data.warning) {
+      setSubmitStatus("Message sent successfully, but confirmation email was delayed.");
+    } else {
+      setSubmitStatus("Message sent successfully. Please check your email.");
+    }
+
     setFormData({
       fullName: "",
       email: "",
       phone: "",
       message: "",
     });
+  } catch (error) {
+    setSubmitStatus("Could not send message right now. Please try again.");
+  } finally {
     setIsSubmitting(false);
-  };
+  }
+};
 
   // Pattern style from user example
   const patternStyle = {
@@ -249,7 +260,7 @@ export default function ContactPage() {
                       <Mail className="w-6 h-6 text-red-700 flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="font-medium text-gray-900">Email</p>
-                        <p className="text-gray-600">info@riseagainholdings.co.ke</p>
+                        <p className="text-gray-600">info@riseagainholdings.com</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -323,3 +334,11 @@ export default function ContactPage() {
     </>
   );
 }
+function setIsSubmitting(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
+function setSubmitStatus(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

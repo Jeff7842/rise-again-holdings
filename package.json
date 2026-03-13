@@ -27,6 +27,7 @@
     "lucide-react": "^0.563.0",
     "next-app": "^0.0.0",
     "node": "^25.8.1",
+    "resend": "^6.9.3",
     "tailwind": "^4.0.0"
   },
   "devDependencies": {

@@ -114,7 +114,7 @@ export default function Navbar() {
                     {link.name}
                   </a>
                 ))}
-                <button className="bg-red-700 text-white px-6 py-3 font-medium hover:bg-red-700 focus:bg-red-800 focus:text-white focus:border-red-800 focus:scale-[0.98] transition-colors mt-4">
+                <button onClick={handleClick} className="bg-red-700 text-white px-6 py-3 font-medium hover:bg-red-700 focus:bg-red-800 focus:text-white focus:border-red-800 focus:scale-[0.98] transition-colors mt-4">
                   Contact Us Today
                 </button>
               </div>
