@@ -4,7 +4,14 @@
   "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
   "main": "index.js",
   "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "vercel-build": "next build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=20.x"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +21,8 @@
     "lib": "lib"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.1",
+    "@tailwindcss/postcss": "^4.2.1",
     "autoprefixer": "^10.4.27",
     "brevo": "^1.0.0",
     "eslint": "^9.39.4",
@@ -22,16 +31,13 @@
     "lucide-react": "^0.563.0",
     "next": "^16.1.6",
     "next-app": "^0.0.0",
-    "node": "^25.8.1",
     "postcss": "^8.5.8",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "resend": "^6.9.3",
-    "tailwind": "^4.0.0",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jeff7842/rise-again-holdings.git"
@@ -39,5 +45,8 @@
   "bugs": {
     "url": "https://github.com/Jeff7842/rise-again-holdings/issues"
   },
-  "homepage": "https://github.com/Jeff7842/rise-again-holdings#readme"
+  "homepage": "https://github.com/Jeff7842/rise-again-holdings#readme",
+  "devDependencies": {
+    "@types/react": "19.2.14"
+  }
 }
