@@ -171,7 +171,7 @@ const STATUS_OPTIONS = [
   { value: 'hidden', label: 'Hidden' }
 ];
 
-const STORAGE_BUCKET = "listing-media";
+const STORAGE_BUCKET = "listings-media";
 
 function guessTypeFromUrl(url?: string | null): "image" | "video" {
   const u = (url ?? "").toLowerCase();

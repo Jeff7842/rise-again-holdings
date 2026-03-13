@@ -13,23 +13,17 @@ import {
   Search,
   ArrowUpDown,
   SlidersHorizontal,
+  Video,
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import {
+  normalizeListingMedia,
+  type ListingWithMedia,
+} from "@/lib/listing-media";
 
 const APP_BOOT_TS = Date.now();
 
-type DbListing = {
-  id: string;
-  slug: string | null;
-  title: string | null;
-  location: string | null;
-  price: string | null;
-  bedrooms: number | null;
-  bathrooms: number | null;
-  cover_image_url: string | null;
-  status: string | null;
-  created_at?: string | null;
-};
+type DbListing = ListingWithMedia;
 
 type SortMode =
   | "newest"
@@ -77,9 +71,27 @@ export default function ListingsIndexPage() {
 
       const { data, error } = await supabase
         .from("listings")
-        .select(
-          "id,slug,title,location,price,bedrooms,bathrooms,cover_image_url,status,created_at"
-        );
+        .select(`
+          id,
+          slug,
+          title,
+          location,
+          price,
+          bedrooms,
+          bathrooms,
+          cover_image_url,
+          status,
+          created_at,
+          images,
+          listing_media (
+      id,
+      bucket,
+      object_path,
+      kind,
+      sort_order,
+      is_cover
+    )
+  `);
 
       if (!alive) return;
 
@@ -367,9 +379,7 @@ export default function ListingsIndexPage() {
           {error && (
             <div className="state state-error">
               <strong>Supabase error:</strong> {error}
-              <div className="state-hint">
-                Check your table name/columns and env vars.
-              </div>
+              <div className="state-hint">Check your table name/columns and env vars.</div>
             </div>
           )}
 
@@ -380,9 +390,7 @@ export default function ListingsIndexPage() {
           {!loading && !error && filtered.length === 0 && (
             <div className="state state-empty">
               No matching listings.
-              <div className="state-hint">
-                Try a broader search or clear some filters.
-              </div>
+              <div className="state-hint">Try a broader search or clear some filters.</div>
             </div>
           )}
 
@@ -394,23 +402,37 @@ export default function ListingsIndexPage() {
                 const price = l.price ?? "Price on request";
                 const href = `/listings/${l.slug ?? l.id}`;
                 const statusClass = (l.status ?? "unknown").toLowerCase();
+                const media = normalizeListingMedia(l);
 
                 return (
                   <article key={l.id} className="listing-card">
                     <Link href={href} className="listing-card-media">
-                      <Image
-                        src={
-                          l.cover_image_url ||
-                          "https://fvjyxnsxylajudptslro.supabase.co/storage/v1/object/public/Rise%20Agina%20website/Hero2.png"
-                        }
-                        alt={title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 30vw"
-                        className="listing-card-img"
-                        priority={false}
-                      />
+                      {media.thumbnailKind === "video" ? (
+                        <video
+                          src={media.thumbnail}
+                          className="listing-card-img"
+                          muted
+                          playsInline
+                          preload="metadata"
+                        />
+                      ) : (
+                        <Image
+                          src={media.thumbnail}
+                          alt={title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 30vw"
+                          className="listing-card-img"
+                          priority={false}
+                        />
+                      )}
+
                       <div className="listing-card-gradient" />
                       <div className="listing-card-price">{price}</div>
+                      {media.hasVideo && (
+                        <span className="video-badge-card">
+                          <Video size={12} />
+                        </span>
+                      )}
                       <span className={`status-badge-card ${statusClass}`}>
                         {l.status ?? "unknown"}
                       </span>

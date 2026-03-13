@@ -7,12 +7,10 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Footer from '@/components/Footer';
 import ContactAgentForm from "@/components/ContactAgentForm";
+import { normalizeListingMedia } from "@/lib/listing-media";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MoreListings({ current, listings }: { current: string; listings: any[] }) {
-  const isImageUrl = (url?: string) =>
-    typeof url === "string" && /\.(jpg|jpeg|png|webp|avif)$/i.test(url);
-
   return (
     <section className="more-listings">
       <div className="section-heading">
@@ -24,14 +22,28 @@ function MoreListings({ current, listings }: { current: string; listings: any[] 
           .filter((l) => l.id !== current)
           .map((l) => {
             const href = `/listings/${l.slug ?? l.id}`;
-            const thumb =
-              l.cover_image_url ||
-              (Array.isArray(l.images) ? l.images.find(isImageUrl) : null) ||
-              "/placeholder.jpg";
+            const media = normalizeListingMedia(l);
 
             return (
               <Link key={l.id} href={href} className="card">
-                <Image src={thumb} alt={l.title ?? ""} width={320} height={200} />
+                {media.thumbnailKind === "video" ? (
+                  <video
+                    src={media.thumbnail}
+                    width={320}
+                    height={200}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="card-thumb"
+                  />
+                ) : (
+                  <Image
+                    src={media.thumbnail}
+                    alt={l.title ?? ""}
+                    width={320}
+                    height={200}
+                  />
+                )}
                 <h4>{l.title ?? "Untitled listing"}</h4>
                 <p>{l.location ?? "Location unavailable"}</p>
                 <p className="card-price">{l.price ?? "Price on request"}</p>

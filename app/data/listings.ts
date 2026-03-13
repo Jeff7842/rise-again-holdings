@@ -60,7 +60,15 @@ function normalizeCoverUrl(listing: DbListing) {
   if (/^https?:\/\//i.test(cover)) return cover;
 
   // Otherwise treat as storage object_path
-  return publicUrl(listing.media_bucket ?? "Listings Images", cover);
+  const LISTING_BUCKETS = {
+  primary: "listings_media",
+  legacy: "Listings Images",
+};
+
+return publicUrl(
+  listing.media_bucket ?? LISTING_BUCKETS.primary ?? LISTING_BUCKETS.legacy,
+  cover
+);
 }
 
 /**
