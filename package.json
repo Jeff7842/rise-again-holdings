@@ -22,7 +22,7 @@
     "lint": "eslint"
   },
   "engines": {
-    "node": "^25.8.1"
+    "node": "24.x"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.1",
